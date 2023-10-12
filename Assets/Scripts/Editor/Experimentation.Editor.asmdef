@@ -1,0 +1,16 @@
+{
+    "name": "Experimentation.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:efd87ade5caa7f945a88d47bda873628"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
