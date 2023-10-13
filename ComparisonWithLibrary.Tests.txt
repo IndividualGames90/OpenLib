@@ -1,0 +1,6 @@
+ComparisonWithLibrary: OpenLib.LinkedList took 0.1788ms for 1000 AddLast
+ComparisonWithLibrary: System.LinkedList took 0.4596ms for 1000 AddLast
+ComparisonWithLibrary: OpenLib.LinkedList took 1.1479ms for 10000 AddLast
+ComparisonWithLibrary: System.LinkedList took 1.5637ms for 10000 AddLast
+ComparisonWithLibrary: OpenLib.LinkedList took 10.4117ms for 100000 AddLast
+ComparisonWithLibrary: System.LinkedList took 17.3708ms for 100000 AddLast

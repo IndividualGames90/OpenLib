@@ -1,7 +1,10 @@
-﻿namespace IndividualGames.OpenLib.DataStructure.LinkedList
+﻿using System.Collections.Generic;
+
+namespace IndividualGames.OpenLib.DataStructure.LinkedList
 {
     /// <summary>
-    /// LinkedList with tail.
+    /// Singly LinkedList with a tail.
+    /// Performant but unsafe.
     /// </summary>
     public class LinkedList<T>
     {
@@ -16,7 +19,18 @@
         /// <summary> Total current number of elements. </summary>
         public int Count { get; private set; }
 
-        /// <summary> Add new element as last. </summary>
+        public LinkedList(IEnumerable<T> collection = null)
+        {
+            if (collection != null)
+            {
+                foreach (T item in collection)
+                {
+                    AddLast(item);
+                }
+            }
+        }
+
+        /// <summary> Add new element as last. </summary/ 
         public virtual void AddLast(T value)
         {
             var newNode = new Node<T> { Value = value };

@@ -1,0 +1,7 @@
+    Stacks & Queues
+    Binary Trees, AVL Trees
+    Graphs: BFS, DFS, Dijkstra’s
+    Hash Tables
+    Heaps: Min-Heap, Max-Heap
+    Dynamic Programming: Memoization, Tabulation
+    Sorting: Quick, Merge, Radix
