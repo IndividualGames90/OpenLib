@@ -1,18 +1,36 @@
-﻿namespace IndividualGames.OpenLib.DataStructure.LinkedList
+﻿using System.Collections.Generic;
+
+namespace IndividualGames.OpenLib.DataStructure.LinkedList
 {
     /// <summary>
-    /// LinkedList with tail.
+    /// Singly LinkedList with a tail.
+    /// Performant but unsafe.
     /// </summary>
     public class LinkedList<T>
     {
+        /// <summary> Reference value to first element. </summary>
         public T Head => head.Value;
         private Node<T> head;
 
+        /// <summary> Reference value to last element. </summary>
         public T Tail => tail.Value;
         private Node<T> tail;
 
+        /// <summary> Total current number of elements. </summary>
         public int Count { get; private set; }
 
+        public LinkedList(IEnumerable<T> collection = null)
+        {
+            if (collection != null)
+            {
+                foreach (T item in collection)
+                {
+                    AddLast(item);
+                }
+            }
+        }
+
+        /// <summary> Add new element as last. </summary/ 
         public virtual void AddLast(T value)
         {
             var newNode = new Node<T> { Value = value };
@@ -29,6 +47,7 @@
             tail = newNode;
         }
 
+        /// <summary> Add new element as first. </summary>
         public virtual void AddFirst(T value)
         {
             var newNode = new Node<T> { Value = value };
@@ -45,6 +64,7 @@
             head = newNode;
         }
 
+        /// <summary> Remove first element. </summary>
         public virtual void RemoveFirst()
         {
             if (head == null)
@@ -61,6 +81,7 @@
             Count--;
         }
 
+        /// <summary> Remove last element. </summary>
         public virtual void RemoveLast()
         {
             if (head == null)
@@ -86,6 +107,7 @@
             Count--;
         }
 
+        /// <summary> Remove first occurance of given value. </summary>
         public virtual void RemoveFirstOccurance(T value)
         {
             if (head == null)
@@ -114,6 +136,7 @@
             }
         }
 
+        /// <summary> Confirm if value is contained within the list. </summary>
         public virtual bool Contains(T value)
         {
             if (head == null)
@@ -139,88 +162,18 @@
             return false;
         }
 
+        /// <summary> Check if list is empty. </summary>
         public virtual bool IsEmpty()
         {
             return head == null || Count == 0;
         }
 
+        /// <summary> Clear all data from the list. </summary>
         public virtual void Clear()
         {
             head = null;
             tail = null;
             Count = 0;
-        }
-    }
-
-    /// <summary>
-    /// Thread safe LinkedList for parallel processing.
-    /// </summary>
-    public class ThreadSafeLinkedList<T> : LinkedList<T>
-    {
-        private readonly object _lock = new object();
-
-        public override void AddLast(T value)
-        {
-            lock (_lock)
-            {
-                base.AddLast(value);
-            }
-        }
-
-        public override void AddFirst(T value)
-        {
-            lock (_lock)
-            {
-                base.AddFirst(value);
-            }
-        }
-
-        public override void RemoveFirst()
-        {
-            lock (_lock)
-            {
-                base.RemoveFirst();
-            }
-        }
-
-        public override void RemoveLast()
-        {
-            lock (_lock)
-            {
-                base.RemoveLast();
-            }
-        }
-
-        public override void RemoveFirstOccurance(T value)
-        {
-            lock (_lock)
-            {
-                base.RemoveFirstOccurance(value);
-            }
-        }
-
-        public override bool Contains(T value)
-        {
-            lock (_lock)
-            {
-                return base.Contains(value);
-            }
-        }
-
-        public override bool IsEmpty()
-        {
-            lock (_lock)
-            {
-                return base.IsEmpty();
-            }
-        }
-
-        public override void Clear()
-        {
-            lock (_lock)
-            {
-                base.Clear();
-            }
         }
     }
 }

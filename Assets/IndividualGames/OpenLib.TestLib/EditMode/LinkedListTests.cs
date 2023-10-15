@@ -1,10 +1,14 @@
 using IndividualGames.OpenLib.DataStructure.LinkedList;
 using NUnit.Framework;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
+using SystemList = System.Collections.Generic.List<int>;
 
-namespace IndividualGames.OpenLib.Tests.Editor
+namespace IndividualGames.OpenLib.Tests.EditMode
 {
+    [TestFixture]
     public class LinkedListTests
     {
         [Test]
@@ -125,6 +129,59 @@ namespace IndividualGames.OpenLib.Tests.Editor
             Parallel.Invoke(insertLots, removeLots);
 
             Assert.AreEqual(10, linkedlist.Count);
+        }
+
+        [Test]
+        public void InstantiateWithCollection()
+        {
+            SystemList list = new() { 1, 2, 3, 4, 5 };
+            LinkedList<int> linkedList = new(list);
+
+            Assert.AreEqual(5, linkedList.Count);
+            Assert.AreEqual(1, linkedList.Head);
+            Assert.AreEqual(5, linkedList.Tail);
+            linkedList.RemoveLast();
+            Assert.AreEqual(4, linkedList.Tail);
+        }
+
+        [TestCase(1000)]
+        [TestCase(10000)]
+        [TestCase(100000)]
+        public void ComparisonWithLibrary(int n)
+        {
+            var linkedlist = new LinkedList<int>();
+            var libraryLinkedList = new System.Collections.Generic.LinkedList<int>();
+
+            var timer = new Stopwatch();
+
+            timer.Start();
+            for (int i = 0; i < n; i++)
+            {
+                linkedlist.AddLast(n);
+            }
+            timer.Stop();
+            var myTime = timer.Elapsed.TotalMilliseconds;
+
+            timer.Restart();
+            for (int i = 0; i < n; i++)
+            {
+                libraryLinkedList.AddLast(n);
+            }
+            timer.Stop();
+            var libraryTime = timer.Elapsed.TotalMilliseconds;
+
+            var log1 = $"ComparisonWithLibrary: OpenLib.LinkedList took {myTime}ms for {n} AddLast";
+            var log2 = $"ComparisonWithLibrary: System.LinkedList took {libraryTime}ms for {n} AddLast";
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log(log1);
+            UnityEngine.Debug.Log(log2);
+#endif
+#if UNITY_STANDALONE
+            var fileName = "ComparisonWithLibrary.Tests.txt";
+            File.AppendAllText(fileName, log1 + "\n");
+            File.AppendAllText(fileName, log2 + "\n");
+#endif
         }
     }
 }
