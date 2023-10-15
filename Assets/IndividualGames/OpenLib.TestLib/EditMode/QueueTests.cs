@@ -31,7 +31,7 @@ namespace IndividualGames.OpenLib.Tests.EditMode
                 queue.Enqueue(i);
             }
             Assert.AreEqual(elementCount, queue.Count);
-            Assert.AreEqual(elementCount - 1, queue.Peek());
+            Assert.AreEqual(0, queue.Peek());
 
             for (int i = 0; i < elementCount; i++)
             {
