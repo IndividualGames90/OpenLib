@@ -46,3 +46,15 @@ ComparisonWithLibrary: OpenLib.LinkedList took 1.2475ms for 10000 AddLast
 ComparisonWithLibrary: System.LinkedList took 1.7075ms for 10000 AddLast
 ComparisonWithLibrary: OpenLib.LinkedList took 11.1714ms for 100000 AddLast
 ComparisonWithLibrary: System.LinkedList took 18.0655ms for 100000 AddLast
+ComparisonWithLibrary: OpenLib.LinkedList took 0.1809ms for 1000 AddLast
+ComparisonWithLibrary: System.LinkedList took 0.3674ms for 1000 AddLast
+ComparisonWithLibrary: OpenLib.LinkedList took 1.1007ms for 10000 AddLast
+ComparisonWithLibrary: System.LinkedList took 1.8451ms for 10000 AddLast
+ComparisonWithLibrary: OpenLib.LinkedList took 10.8036ms for 100000 AddLast
+ComparisonWithLibrary: System.LinkedList took 15.5748ms for 100000 AddLast
+ComparisonWithLibrary: OpenLib.LinkedList took 0.1347ms for 1000 AddLast
+ComparisonWithLibrary: System.LinkedList took 0.1746ms for 1000 AddLast
+ComparisonWithLibrary: OpenLib.LinkedList took 1.2099ms for 10000 AddLast
+ComparisonWithLibrary: System.LinkedList took 1.7292ms for 10000 AddLast
+ComparisonWithLibrary: OpenLib.LinkedList took 11.1193ms for 100000 AddLast
+ComparisonWithLibrary: System.LinkedList took 16.0034ms for 100000 AddLast
