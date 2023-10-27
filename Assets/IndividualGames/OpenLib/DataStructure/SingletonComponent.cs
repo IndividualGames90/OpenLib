@@ -49,6 +49,9 @@ namespace Assets.IndividualGames.OpenLib.DataStructure
         }
     }*/
 
+    /// <summary>
+    /// Manager for SingletonBehaviors. Callback to their Awakes.
+    /// </summary>
     public class SingletonComponentManager : MonoBehaviour
     {
         private List<ISingletonComponent> singletons = new();
@@ -73,6 +76,9 @@ namespace Assets.IndividualGames.OpenLib.DataStructure
         private static T _instance;
         private static bool _destoyed = false;
 
+        public delegate void AwakeSubsitute();
+        private AwakeSubsitute _awake;
+
         public static T Instance
         {
             get
@@ -84,7 +90,7 @@ namespace Assets.IndividualGames.OpenLib.DataStructure
                     {
                         if (singletons.Length > 1)
                         {
-                            Debug.LogError($"nameOf(SingletonComponent): More than one Singleton detected, destroying the rest.");
+                            Debug.LogError($"{nameof(SingletonComponent<T>)}: More than one Singleton detected, destroying the rest.");
 
                             for (int i = 0; i < singletons.Length; i++)
                             {
@@ -103,15 +109,48 @@ namespace Assets.IndividualGames.OpenLib.DataStructure
             }
         }
 
+        /// <summary> Children must call this method in their Awake and 
+        /// pass a substitute to serve as their Awake. </summary>
+        public void MustCallInAwake(AwakeSubsitute awake)
+        {
+            _awake = awake;
+            OnAwake();
+        }
+
+        /// <summary> Actual Awake. </summary>
         public virtual void OnAwake()
         {
             _instance = null;
             _destoyed = false;
         }
 
+        /// <summary> Awake of this, don't run for children. </summary>
         private void Awake()
         {
             OnAwake();
+        }
+    }
+
+    public class SingletonComponentTest : SingletonComponent<SingletonComponentTest>
+    {
+        public enum TestStageEnum
+        {
+            UnityAwake,
+            SubstituteAwake
+        }
+
+        public TestStageEnum TestStage;
+
+
+        private void Awake()
+        {
+            TestStage = TestStageEnum.UnityAwake;
+            MustCallInAwake(AwakeTest);
+        }
+
+        private void AwakeTest()
+        {
+            TestStage = TestStageEnum.SubstituteAwake;
         }
     }
 }
