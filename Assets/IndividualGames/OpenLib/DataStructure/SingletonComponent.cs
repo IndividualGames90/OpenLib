@@ -100,10 +100,11 @@ namespace Assets.IndividualGames.OpenLib.DataStructure
                         }
                         return singletons[0];
                     }
+
+                    GameObject newSingleton = new GameObject(typeof(T).Name, typeof(T));
+                    _instance = newSingleton.GetComponent<T>();
+                    DontDestroyOnLoad(_instance.gameObject);
                 }
-                GameObject newSingleton = new GameObject(typeof(T).Name, typeof(T));
-                _instance = newSingleton.GetComponent<T>();
-                DontDestroyOnLoad(_instance.gameObject);
 
                 return _instance;
             }
@@ -122,6 +123,11 @@ namespace Assets.IndividualGames.OpenLib.DataStructure
         {
             _instance = null;
             _destoyed = false;
+
+            if (_awake != null)
+            {
+                _awake();
+            }
         }
 
         /// <summary> Awake of this, don't run for children. </summary>
