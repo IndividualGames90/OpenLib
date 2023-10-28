@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/LinkedListTest.unity
+    path: Assets/Scenes/AdvancedCoding/LinkedListTest.unity
     guid: 11c7e692fbc611f4a9e9ac244935406f
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
