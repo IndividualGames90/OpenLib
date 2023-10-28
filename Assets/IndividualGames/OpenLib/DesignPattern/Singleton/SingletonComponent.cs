@@ -30,7 +30,7 @@ namespace IndividualGames.OpenLib.DesignPattern
                     {
                         if (singletons.Length > 1)
                         {
-                            Debug.LogError($"{nameof(SingletonComponent<T>)}: More than one Singleton detected, destroying the rest.");
+                            Debug.LogError($"{nameof(SingletonComponent<T>)}: More than one Singleton detected, destroying the rest on scene.");
 
                             for (int i = 1; i < singletons.Length; i++)
                             {
