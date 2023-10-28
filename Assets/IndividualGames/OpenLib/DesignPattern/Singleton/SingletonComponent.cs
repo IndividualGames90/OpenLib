@@ -6,10 +6,10 @@ namespace IndividualGames.OpenLib.DesignPattern
     /// Singleton and a component.
     /// Use must call in awake if derived for an on scene GameObject.
     /// </summary>
-    public class SingletonComponent<T> : MonoBehaviour, ISingletonComponent where T : SingletonComponent<T>, ISingletonComponent
+    public class SingletonComponent<T> : SingletonBehavior, ISingletonComponent where T : SingletonComponent<T>, ISingletonComponent
     {
         private static T _instance;
-        private static bool _destoyed = false;
+        private static bool _destroyed = false;
 
         public delegate void AwakeSubsitute();
         private AwakeSubsitute _awake;
@@ -18,6 +18,11 @@ namespace IndividualGames.OpenLib.DesignPattern
         {
             get
             {
+                if (_destroyed)
+                {
+                    return null;
+                }
+
                 if (_instance == null)
                 {
                     T[] singletons = FindObjectsOfType(typeof(T)) as T[];
@@ -27,10 +32,11 @@ namespace IndividualGames.OpenLib.DesignPattern
                         {
                             Debug.LogError($"{nameof(SingletonComponent<T>)}: More than one Singleton detected, destroying the rest.");
 
-                            for (int i = 0; i < singletons.Length; i++)
+                            for (int i = 1; i < singletons.Length; i++)
                             {
                                 T singleton = singletons[i];
-                                Destroy(singleton.gameObject);
+                                DestroyImmediate(singleton.gameObject);
+                                singleton = null;
                             }
                         }
                         return singletons[0];
@@ -38,7 +44,7 @@ namespace IndividualGames.OpenLib.DesignPattern
 
                     GameObject newSingleton = new GameObject(typeof(T).Name, typeof(T));
                     _instance = newSingleton.GetComponent<T>();
-                    DontDestroyOnLoad(_instance.gameObject);
+                    //DontDestroyOnLoad(_instance.gameObject);
                 }
 
                 return _instance;
@@ -54,10 +60,10 @@ namespace IndividualGames.OpenLib.DesignPattern
         }
 
         /// <summary> Actual Awake. </summary>
-        public virtual void OnAwake()
+        public override void OnAwake()
         {
-            _instance = null;
-            _destoyed = false;
+            _destroyed = false;
+            _ = Instance;
 
             if (_awake != null)
             {
@@ -69,6 +75,11 @@ namespace IndividualGames.OpenLib.DesignPattern
         private void Awake()
         {
             OnAwake();
+        }
+
+        private void OnDestroy()
+        {
+            _destroyed = true;
         }
     }
 }
