@@ -16,7 +16,7 @@
     
     IndividualGames OpenLib, is a public library designed for tutorial-work, fun stuff ,experimentation. Anything goes.
 
-    Kindly don't distribute without permission | IndividualGames@yandex.com | https://github.com/IndividualGames90
+                            IndividualGames@yandex.com | https://github.com/IndividualGames90
 
 Locations:
 
